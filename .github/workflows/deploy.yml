@@ -1,0 +1,43 @@
+name: Test and Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - run: pip install pytest fastapi httpx pydantic
+
+    - run: pytest test_pipeline.py -v --tb=short
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ubuntu
+        key: ${{ secrets.EC2_KEY }}
+
+        script: |
+          cd ~/project3
+          git pull origin main
+          docker-compose down
+          docker-compose up -d --build
