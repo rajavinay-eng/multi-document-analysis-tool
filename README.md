@@ -1,140 +1,125 @@
-# Multi-Document Analysis Tool
-
-Production-ready FastAPI application deployed on AWS EC2 using Docker.
 
 ---
 
-## Live API
+```markdown id="rj3t8m"
+# multi-document-analysis-tool
 
-### Swagger Documentation
-http://16.171.249.112:8000/docs
-
-### Health Check
-http://16.171.249.112:8000/health
-
-### API Base URL
-http://16.171.249.112:8000
+Multi-document RAG analysis system for semantic retrieval and contextual question answering across multiple uploaded documents.
 
 ---
 
-# Project Overview
+# Overview
 
-This project is a production-style Multi-Document Analysis System designed for AI engineering portfolio work.
+This project demonstrates a multi-document AI workflow using Retrieval-Augmented Generation (RAG), vector search, and LLM-based contextual analysis.
 
-The system allows users to:
+Users can upload multiple PDF documents, process document content into semantic chunks, retrieve relevant information using vector similarity search, and generate grounded responses through LLM inference.
 
-- Upload documents
-- Analyze document content
-- Compare multiple documents
-- Generate AI-based summaries
-- Track API statistics
-
-The application was containerized using Docker and deployed publicly on AWS EC2.
+The project focuses on backend AI engineering concepts including document ingestion pipelines, retrieval workflows, vector databases, caching, deployment, and modular architecture.
 
 ---
 
-# Features
+# Key Features
 
-## Document Upload API
-
-Upload and process files through REST APIs.
-
-## Multi-Document Analysis
-
-Analyze document content using FastAPI endpoints.
-
-## Document Comparison
-
-Compare multiple uploaded documents.
-
-## AI-Based Summarization
-
-Generate concise summaries from document content.
-
-## FastAPI Backend
-
-High-performance API framework implementation.
-
-## Dockerized Deployment
-
-Fully containerized production deployment.
-
-## AWS EC2 Hosting
-
-Public cloud deployment using Amazon EC2.
-
-## API Monitoring
-
-Track usage statistics and health endpoints.
+- Multi-document PDF ingestion
+- Semantic chunking pipeline
+- Embedding generation workflow
+- Context-aware retrieval
+- Vector similarity search
+- FastAPI REST API backend
+- ChromaDB integration
+- Multi-document retrieval workflow
+- Dockerized deployment
+- Modular backend architecture
+- Logging and caching workflows
 
 ---
 
 # Tech Stack
 
+## Backend
 - Python
 - FastAPI
-- Docker
-- AWS EC2
-- REST APIs
 - Uvicorn
-- ChromaDB
+
+## AI / NLP
+- OpenAI API
 - LangChain
-- Transformers
+
+## Vector Database
+- ChromaDB
+
+## Deployment
+- Docker
+- Render
 
 ---
 
-# API Endpoints
+# Architecture
 
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | /health | Health monitoring |
-| POST | /upload | Upload documents |
-| POST | /analyze | Analyze documents |
-| POST | /compare | Compare documents |
-| POST | /summarize | Generate summaries |
-| GET | /stats | API statistics |
+```mermaid
+flowchart TD
 
----
+A[Multiple PDF Documents] --> B[Chunking]
+B --> C[Embeddings]
+C --> D[ChromaDB Vector Store]
 
-# Docker Setup
+E[User Query] --> F[FastAPI Backend]
+F --> G[LangChain Workflow]
+G --> H[Hybrid Retrieval]
+H --> D
+D --> I[Relevant Context]
+I --> J[OpenAI API]
+J --> K[Final Response]
 
-## Build Docker Image
-
-```bash
-docker build -t project3 .
+L[Docker Deployment] --> F
 ```
 
-## Run Docker Container
+---
 
-```bash
-docker run -d -p 8000:8000 --name project3-container project3
-```
+# Example Workflow
+
+## 1. Upload Multiple Documents
+
+Users upload multiple PDF documents through the API.
+
+## 2. Process Documents
+
+Documents are chunked into semantic sections.
+
+## 3. Generate Embeddings
+
+Embeddings are generated for vector retrieval.
+
+## 4. Store in ChromaDB
+
+Chunks and embeddings are stored in the vector database.
+
+## 5. Retrieve Relevant Context
+
+Relevant chunks are retrieved using semantic similarity search.
+
+## 6. Generate Final Response
+
+The LLM generates grounded responses using retrieved context.
 
 ---
 
-# AWS EC2 Deployment
+# Example Questions
 
-The application was deployed on:
-
-- AWS EC2
-- Amazon Linux 2023
-- Docker containerized environment
-- Public API access through security groups
+- Compare concepts across documents
+- Summarize uploaded documents
+- Extract important topics
+- Analyze similarities between documents
+- Retrieve document-specific information
 
 ---
 
-# Local Installation
+# Local Development
 
 ## Clone Repository
 
 ```bash
 git clone https://github.com/rajavinay-eng/multi-document-analysis-tool.git
-```
-
-## Navigate to Project
-
-```bash
-cd multi-document-analysis-tool
 ```
 
 ## Install Dependencies
@@ -143,34 +128,51 @@ cd multi-document-analysis-tool
 pip install -r requirements.txt
 ```
 
-## Run Application
+## Run FastAPI Backend
 
 ```bash
-uvicorn main:app --host 0.0.0.0 --port 8000
+uvicorn api:app --reload
 ```
 
 ---
 
-# Learning Outcomes
+# Deployment
 
-This project helped build practical experience in:
-
-- Production API development
-- Docker containerization
-- AWS EC2 deployment
-- Backend engineering
-- REST API architecture
-- AI application deployment
-- Cloud infrastructure management
+The application is containerized using Docker and deployed on Render.
 
 ---
 
-# Author
+# Engineering Focus Areas
 
-Raja Vinay Kumar Koppula
+This project demonstrates practical experience with:
 
-GitHub:
-https://github.com/rajavinay-eng
+- Multi-document RAG workflows
+- Semantic retrieval pipelines
+- Vector databases
+- FastAPI backend development
+- AI API integration
+- Dockerized deployment
+- Modular backend architecture
+- Context-aware LLM applications
 
-LinkedIn:
-https://www.linkedin.com/in/rajavinaykumarkoppula/
+---
+
+# Future Improvements
+
+- Authentication and authorization
+- Streaming responses
+- Conversation memory
+- Async processing workflows
+- Monitoring and observability
+- Advanced reranking models
+- Multi-user support
+
+---
+
+# Environment Variables
+
+Create a `.env` file:
+
+```env
+OPENAI_API_KEY=your_api_key
+```
